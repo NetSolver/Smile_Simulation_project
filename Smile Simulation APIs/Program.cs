@@ -15,7 +15,9 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ILikeRepository, LikeRepository>();
-builder.Services.AddScoped<PostService, PostService>();
+builder.Services.AddScoped<CommentService>();
+builder.Services.AddScoped<PostService>();
+builder.Services.AddScoped<LikeService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddControllers();

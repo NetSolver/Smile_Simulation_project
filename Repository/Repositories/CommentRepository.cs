@@ -21,5 +21,11 @@ namespace Infrastructure.Repositories
 
         public async Task<List<Comment>> GetCommentsByPostIdAsync(int postId) =>
             await _context.Comments.Where(c => c.PostId == postId).ToListAsync();
+        public async Task<Comment?> GetCommentByPostIdAndCommentIdAsync(int postId, int commentId)
+        {
+            return await _context.Comments
+                .FirstOrDefaultAsync(c => c.PostId == postId && c.Id == commentId);
+        }
+
     }
 }

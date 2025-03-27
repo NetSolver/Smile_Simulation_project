@@ -12,6 +12,7 @@ namespace Core.Reposotries
     {
         Task<int> GetLikesCountAsync(int postId);
         Task<int> GetCommentsCountAsync(int postId);
+        Task<bool> ExistsAsync(int postId);
     }
 
 }

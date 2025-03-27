@@ -26,33 +26,38 @@ namespace Infrastructure.Data
             modelBuilder.Entity<Post>()
                 .HasOne(p => p.Publisher)
                 .WithMany(u => u.Posts)
-                .HasForeignKey(p => p.PublisherId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(p => p.PublisherId);
+              
+
+            
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.User)
+                .WithMany(o=>o.Comments)
+                .HasForeignKey(c => c.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Comment>()
                 .HasOne(c => c.Post)
-                .WithMany(p => p.Comments)
-                .HasForeignKey(c => c.PostId)
-                .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Comment>()
-                .HasOne(l => l.User)
-                .WithMany(c=> c.Comments)
-                .HasForeignKey(l => l.UserId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .WithMany(o => o.Comments)
+                .HasForeignKey(c => c.PostId);
+
+
+
 
 
             modelBuilder.Entity<Like>()
                 .HasOne(l => l.Post)
                 .WithMany(p => p.Likes)
-                .HasForeignKey(l => l.PostId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(l => l.PostId);
+
 
 
             modelBuilder.Entity<Like>()
                 .HasOne(l => l.User)
                 .WithMany(u => u.Likes)
                 .HasForeignKey(l => l.UserId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.NoAction);
+
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

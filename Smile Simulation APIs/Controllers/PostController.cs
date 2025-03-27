@@ -76,7 +76,7 @@ namespace Smile_Simulation_APIs.Controllers
                 var deleted = await _postService.DeletePostAsync(postId);
                 if (!deleted) return NotFound("Post not found.");
 
-                return NoContent();
+                return Ok(" Post is Deleted Succesfully");
             }
         
     }
