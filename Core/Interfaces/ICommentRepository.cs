@@ -9,9 +9,10 @@ using Core.Interfaces;
 namespace Core.Reposotries
 {
 
-            public interface ICommentRepository : IRepository<Comment>
-            {
-               Task<List<Comment>> GetCommentsByPostIdAsync(int postId);
-            }
+    public interface ICommentRepository : IRepository<Comment>
+    {
+        Task<List<Comment>> GetCommentsByPostIdAsync(int postId);
+        Task<Comment?> GetCommentByPostIdAndCommentIdAsync(int postId, int commentId);
+    }
 
 }

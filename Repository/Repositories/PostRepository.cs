@@ -20,5 +20,9 @@ namespace Infrastructure.Repositories
 
         public async Task<int> GetLikesCountAsync(int postId) => await _context.Likes.CountAsync(l => l.PostId == postId);
         public async Task<int> GetCommentsCountAsync(int postId) => await _context.Comments.CountAsync(c => c.PostId == postId);
+        public async Task<bool> ExistsAsync(int postId)
+        {
+            return await _context.Posts.AnyAsync(p => p.Id == postId);
+        }
     }
 }

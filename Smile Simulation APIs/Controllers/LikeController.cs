@@ -15,17 +15,27 @@ namespace Smile_Simulation_APIs.Controllers
             _likeService = likeService;
         }
 
-       
-        [HttpPost("{postId}/user/{userId}")]
+
+        [HttpPost("postid{postId}/user/{userId}")]
         public async Task<IActionResult> ToggleLike(int postId, int userId)
         {
-            var isLiked = await _likeService.AddLikeAsync(postId, userId);
+            var likeResult = await _likeService.AddLikeAsync(postId, userId);
 
-            if (isLiked)//AddLikeAsync bool function
-                return Ok("Like added successfully");
+            // إرسال استجابات مفهومة لـ Flutter حسب النتيجة
+            if (likeResult == "Post not found")
+                return NotFound(new { message = likeResult });
 
-            await _likeService.RemoveLikeAsync(postId, userId);
-            return Ok("Like removed successfully");
+            if (likeResult == "User not found")
+                return NotFound(new { message = likeResult });
+
+            if (likeResult == "Already liked")
+            {
+                var removeResult = await _likeService.RemoveLikeAsync(postId, userId);
+                return Ok(new { message = removeResult });  // إزالة الإعجاب إذا كان موجودًا مسبقًا
+            }
+
+            return Ok(new { message = likeResult });  // إضافة إعجاب بنجاح
         }
+
     }
 }

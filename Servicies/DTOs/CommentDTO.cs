@@ -8,8 +8,9 @@ namespace Application.DTOs
 {
     public class CommentDTO
     {
-        public int Id { get; set; }
+        public int CommentID { get; set; }
         public string Content { get; set; }
+        public int  PostId { get; set; }
         public int PublisherId { get; set; }
         public string PublisherName { get; set; }
         public string PublisherImage { get; set; }

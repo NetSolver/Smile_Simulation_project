@@ -37,16 +37,20 @@ namespace Application.Services
 
             return _mapper.Map<CommentDTO>(comment);
         }
-        public async Task<CommentDTO> UpdateCommentAsync(int commentId, string newContent)
-        {
-            var comment = await _commentRepository.GetByIdAsync(commentId);
-            if (comment == null) return null;
+        public async Task<CommentDTO?> UpdateCommentAsync(int postId, int commentId, string newContent){
+        
+            var comment = await _commentRepository.GetCommentByPostIdAndCommentIdAsync(postId, commentId);
 
+            if (comment == null) return null; 
+
+          
             comment.Content = newContent;
             await _commentRepository.SaveChangesAsync();
 
+    
             return _mapper.Map<CommentDTO>(comment);
         }
+
 
 
         public async Task<bool> DeleteCommentAsync(int commentId)
